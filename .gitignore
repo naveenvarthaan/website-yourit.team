@@ -1,0 +1,44 @@
+# =============================================
+# YourIT.Team Website — .gitignore
+# =============================================
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# --- Logs & temp ---
+*.log
+*.tmp
+*.bak
+*.cache
+
+# --- Local environment / secrets ---
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# --- Reference material (kept locally, not deployed) ---
+Requirement.txt
+YourIT.Team*.html
+YourIT.Team*_files/
+
+# --- Node / build artefacts (in case we add tooling later) ---
+node_modules/
+dist/
+build/
+.cache/
+
+# --- Leftover broken git stubs (mount-permission residue) ---
+.git_old/
+.git_old2/
