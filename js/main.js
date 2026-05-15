@@ -92,21 +92,48 @@ const counterObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
 
 // --- Contact form ---
+// Replace this URL after deploying your Google Apps Script (see setup/google-apps-script.js)
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyY_YK-pt5TmmkDak4T4SnmCRa4vFWSqSkMwgmoWLIeSMAUcujreBR1rqoQXoNSNfu9/exec';
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     btn.disabled = true;
 
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.disabled = false;
+    const payload = {
+      firstName: contactForm.elements.firstName.value.trim(),
+      lastName:  contactForm.elements.lastName.value.trim(),
+      email:     contactForm.elements.email.value.trim(),
+      company:   contactForm.elements.company.value.trim(),
+      phone:     contactForm.elements.phone.value.trim(),
+      service:   contactForm.elements.service.value,
+      message:   contactForm.elements.message.value.trim(),
+      timeline:  contactForm.elements.timeline.value,
+      consent:   contactForm.elements.consent.checked ? 'Yes' : 'No',
+    };
+
+    try {
+      // no-cors is required for Google Apps Script from a static site;
+      // the response will be opaque but the data is saved to the sheet.
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+      });
       contactForm.reset();
       showToast('Message sent! We\'ll be in touch within 24 hours.');
-    }, 1800);
+    } catch (err) {
+      showToast('Something went wrong. Please email us directly at info@yourit.team');
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
   });
 }
 
