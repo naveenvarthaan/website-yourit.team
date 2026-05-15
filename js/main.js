@@ -111,7 +111,7 @@ if (contactForm) {
       email:     contactForm.elements.email.value.trim(),
       company:   contactForm.elements.company.value.trim(),
       phone:     contactForm.elements.phone.value.trim(),
-      service:   contactForm.elements.service.value,
+      service:   contactForm.elements.service.options[contactForm.elements.service.selectedIndex].text,
       message:   contactForm.elements.message.value.trim(),
       timeline:  contactForm.elements.timeline.value,
       consent:   contactForm.elements.consent.checked ? 'Yes' : 'No',
