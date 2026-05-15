@@ -113,7 +113,7 @@ if (contactForm) {
       phone:     contactForm.elements.phone.value.trim(),
       service:   contactForm.elements.service.options[contactForm.elements.service.selectedIndex].text,
       message:   contactForm.elements.message.value.trim(),
-      timeline:  contactForm.elements.timeline.value,
+      timeline:  contactForm.elements.timeline.options[contactForm.elements.timeline.selectedIndex].text,
       consent:   contactForm.elements.consent.checked ? 'Yes' : 'No',
     };
 
