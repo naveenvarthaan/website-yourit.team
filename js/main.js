@@ -95,6 +95,8 @@ document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe
 // Replace this URL after deploying your Google Apps Script (see setup/google-apps-script.js)
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyY_YK-pt5TmmkDak4T4SnmCRa4vFWSqSkMwgmoWLIeSMAUcujreBR1rqoQXoNSNfu9/exec';
 
+// Careers form reuses the same GOOGLE_SHEET_URL above (type field routes it to the right sheet)
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
@@ -149,6 +151,155 @@ function showToast(message) {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 400);
   }, 4000);
+}
+
+// --- File upload: label + drag-and-drop ---
+const fileDropZone = document.getElementById('fileDropZone');
+const resumeInput  = document.getElementById('resume');
+const resumeLabel  = document.getElementById('resumeLabel');
+
+if (fileDropZone && resumeInput) {
+  resumeInput.addEventListener('change', () => {
+    resumeLabel.textContent = resumeInput.files[0] ? resumeInput.files[0].name : 'No file selected';
+  });
+  fileDropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileDropZone.classList.add('drag-over');
+  });
+  fileDropZone.addEventListener('dragleave', () => fileDropZone.classList.remove('drag-over'));
+  fileDropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fileDropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files.length) {
+      resumeInput.files = e.dataTransfer.files;
+      resumeLabel.textContent = e.dataTransfer.files[0].name;
+    }
+  });
+}
+
+// --- Careers application form ---
+const careersForm = document.getElementById('careersForm');
+if (careersForm) {
+  careersForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const btn = careersForm.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    const resumeFile = careersForm.elements.resume ? careersForm.elements.resume.files[0] : null;
+
+    // Validate resume presence
+    if (!resumeFile) {
+      showToast('Please attach your resume (PDF or Word .docx).');
+      return;
+    }
+
+    // Validate file type
+    const allowedExts = ['.pdf', '.docx'];
+    const ext = resumeFile.name.toLowerCase().slice(resumeFile.name.lastIndexOf('.'));
+    if (!allowedExts.includes(ext)) {
+      showToast('Only PDF (.pdf) or Word (.docx) files are accepted for resume.');
+      return;
+    }
+
+    // Validate file size (max 10 MB)
+    if (resumeFile.size > 10 * 1024 * 1024) {
+      showToast('Resume file must be under 10 MB. Please compress and retry.');
+      return;
+    }
+
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    const reader = new FileReader();
+    reader.onload = async function (ev) {
+      const base64Data = ev.target.result.split(',')[1];
+
+      const payload = {
+        type:                   'careers',
+        openPosition:           'Access Developer / Junior DBA',
+        fullName:               (careersForm.elements.fullName.value || '').trim(),
+        totalYearsOfExperience: (careersForm.elements.totalYearsOfExperience.value || '').trim(),
+        currentCompany:         (careersForm.elements.currentCompany.value || '').trim(),
+        currentCTC:             (careersForm.elements.currentCTC.value || '').trim(),
+        noticePeriodDays:       (careersForm.elements.noticePeriodDays.value || '').trim(),
+        email:                  (careersForm.elements.email.value || '').trim(),
+        phone:                  (careersForm.elements.phone.value || '').trim(),
+        linkedInURL:            (careersForm.elements.linkedInURL.value || '').trim(),
+        resumeBase64:           base64Data,
+        resumeFileName:         resumeFile.name,
+        resumeMimeType:         resumeFile.type || 'application/octet-stream',
+      };
+
+      try {
+        await fetch(GOOGLE_SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload),
+        });
+        careersForm.reset();
+        if (resumeLabel) resumeLabel.textContent = 'No file selected';
+        showToast('Application submitted! We will be in touch within 3–5 business days.');
+      } catch (err) {
+        showToast('Something went wrong. Please email your resume to info@yourit.team');
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    };
+    reader.readAsDataURL(resumeFile);
+  });
+}
+
+// --- Future Opportunities form ---
+const futureOpportunitiesForm = document.getElementById('futureOpportunitiesForm');
+if (futureOpportunitiesForm) {
+  futureOpportunitiesForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = futureOpportunitiesForm.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+
+    // Collect checked areas
+    const checkedAreas = Array.from(
+      futureOpportunitiesForm.querySelectorAll('input[name="willingToWorkIn"]:checked')
+    ).map(cb => cb.value);
+
+    if (checkedAreas.length === 0) {
+      showToast('Please select at least one area you are willing to work in.');
+      return;
+    }
+
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    const payload = {
+      type:           'future_opportunities',
+      fullName:       (futureOpportunitiesForm.elements.fullName.value || '').trim(),
+      currentCompany: (futureOpportunitiesForm.elements.currentCompany.value || '').trim(),
+      position:       (futureOpportunitiesForm.elements.position.value || '').trim(),
+      willingToWorkIn: checkedAreas.join(', '),
+      phone:          (futureOpportunitiesForm.elements.phone.value || '').trim(),
+      email:          (futureOpportunitiesForm.elements.email.value || '').trim(),
+      linkedInURL:    (futureOpportunitiesForm.elements.linkedInURL.value || '').trim(),
+    };
+
+    try {
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+      });
+      futureOpportunitiesForm.reset();
+      showToast('Profile submitted! We will reach out when a matching opportunity arises.');
+    } catch (err) {
+      showToast('Something went wrong. Please email us directly at info@yourit.team');
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  });
 }
 
 // --- Active nav link based on page ---

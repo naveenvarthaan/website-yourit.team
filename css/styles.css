@@ -1099,6 +1099,205 @@ p { color: var(--text-muted); line-height: 1.8; }
 }
 
 /* ============================================
+   CAREERS PAGE
+   ============================================ */
+.openings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+.job-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: var(--shadow);
+}
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--blue);
+}
+.job-card-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.job-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+.job-badge-remote  { background: rgba(16,185,129,0.10); color: var(--green); }
+.job-badge-fulltime { background: rgba(0,102,255,0.10); color: var(--blue); }
+.job-badge-exp     { background: rgba(124,58,237,0.10); color: var(--purple); }
+.job-card h3 { font-size: 1.2rem; color: var(--primary); }
+.job-card p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.job-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.job-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.job-tag {
+  font-size: 0.72rem;
+  background: var(--light-bg);
+  color: var(--text-muted);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+/* JD detail page */
+.jd-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 52px;
+  align-items: start;
+}
+.jd-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+.jd-section { margin-bottom: 36px; }
+.jd-section h4 {
+  color: var(--primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.jd-section h4 i { color: var(--blue); }
+.jd-section ul { display: flex; flex-direction: column; gap: 7px; }
+.jd-section ul li {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.6;
+}
+.jd-section ul li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  margin-top: 8px;
+}
+.jd-section p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+.jd-note {
+  background: rgba(0,102,255,0.05);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin-top: 8px;
+}
+.jd-note strong { color: var(--primary); font-size: 0.875rem; display: block; margin-bottom: 6px; }
+.jd-note p { font-size: 0.85rem; }
+
+/* Apply form sticky */
+.apply-form-wrap {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  position: sticky;
+  top: 88px;
+}
+.apply-form-wrap h3 { color: var(--primary); margin-bottom: 6px; font-size: 1.15rem; }
+.apply-form-wrap > p { margin-bottom: 24px; font-size: 0.85rem; }
+
+/* Pill-style multi-select */
+.pill-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pill-select input[type="checkbox"] {
+  display: none;
+}
+.pill-select label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--white);
+  user-select: none;
+  line-height: 1;
+}
+.pill-select label i {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+.pill-select label:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(0,102,255,0.04);
+}
+.pill-select input[type="checkbox"]:checked + label {
+  border-color: var(--blue);
+  background: rgba(0,102,255,0.09);
+  color: var(--blue);
+  font-weight: 600;
+}
+.pill-select input[type="checkbox"]:checked + label i {
+  opacity: 1;
+}
+
+/* File upload */
+.file-upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  background: var(--white);
+}
+.file-upload-area:hover, .file-upload-area.drag-over {
+  border-color: var(--blue);
+  background: rgba(0,102,255,0.02);
+}
+.file-upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.file-upload-icon { font-size: 1.6rem; color: var(--blue); margin-bottom: 8px; }
+.file-upload-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+.file-upload-text strong { color: var(--primary); }
+.file-name-display {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--blue);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
@@ -1109,6 +1308,8 @@ p { color: var(--text-muted); line-height: 1.8; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .mission-inner { gap: 40px; }
   .why-us-grid { gap: 48px; }
+  .jd-grid { grid-template-columns: 1fr; }
+  .apply-form-wrap { position: static; }
 }
 
 @media (max-width: 768px) {
@@ -1127,6 +1328,9 @@ p { color: var(--text-muted); line-height: 1.8; }
   .hero-stats { gap: 28px; }
   .process-steps { grid-template-columns: 1fr 1fr; }
   .contact-form-wrap { padding: 28px 20px; }
+  .openings-grid { grid-template-columns: 1fr; }
+  .apply-form-wrap { padding: 28px 20px; }
+  .job-card-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 @media (max-width: 480px) {
