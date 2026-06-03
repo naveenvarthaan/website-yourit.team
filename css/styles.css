@@ -1353,6 +1353,8 @@ p { color: var(--text-muted); line-height: 1.8; }
   padding: 24px;
   gap: 4px;
   border-top: 1px solid rgba(255,255,255,0.08);
+  max-height: calc(100vh - 72px - 80px);
+  overflow-y: auto;
 }
 .navbar.nav-open .navbar-cta {
   display: flex;
@@ -1364,6 +1366,10 @@ p { color: var(--text-muted); line-height: 1.8; }
 .navbar.nav-open .dropdown {
   position: static;
   transform: none;
+  display: none;
+}
+.navbar.nav-open .nav-item.dropdown-open > .dropdown {
+  display: block;
   opacity: 1;
   visibility: visible;
   background: rgba(255,255,255,0.04);
@@ -1371,6 +1377,8 @@ p { color: var(--text-muted); line-height: 1.8; }
   padding: 4px;
   margin-top: 4px;
   pointer-events: all;
+  width: 100%;
+  box-shadow: none;
 }
 .navbar.nav-open .dropdown-item-text strong,
 .navbar.nav-open .dropdown-item-text span {
