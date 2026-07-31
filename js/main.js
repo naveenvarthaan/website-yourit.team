@@ -231,7 +231,7 @@ if (careersForm) {
 
       const payload = {
         type:                   'careers',
-        openPosition:           'Access Developer / Junior DBA',
+        openPosition:           (document.getElementById('hiddenOpenPosition')?.value || 'Access Developer / Junior DBA'),
         fullName:               (careersForm.elements.fullName.value || '').trim(),
         totalYearsOfExperience: (careersForm.elements.totalYearsOfExperience.value || '').trim(),
         currentCompany:         (careersForm.elements.currentCompany.value || '').trim(),

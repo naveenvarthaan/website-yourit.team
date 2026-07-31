@@ -179,18 +179,27 @@ function handleCareers(data) {
     sheet.getRange(1, 1, 1, 11).setFontWeight('bold');
   }
 
-  // Upload resume to Drive
+  // Upload resume to Drive — wrapped in try/catch so a Drive error never
+  // prevents the row from being written to the sheet.
   var resumeLink = '';
   if (data.resumeBase64 && data.resumeFileName) {
-    var folder   = DriveApp.getFolderById(RESUME_FOLDER_ID);
-    var decoded  = Utilities.base64Decode(data.resumeBase64);
-    var mimeType = data.resumeMimeType || 'application/octet-stream';
-    var blob     = Utilities.newBlob(decoded, mimeType, data.resumeFileName);
-    var file     = folder.createFile(blob);
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-    resumeLink   = file.getUrl();
+    try {
+      var parentFolder  = DriveApp.getFolderById(RESUME_FOLDER_ID);
+      var positionName  = (data.openPosition || 'General').replace(/[\/\\:*?"<>|]/g, '-');
+      var subIter       = parentFolder.getFoldersByName(positionName);
+      var subFolder     = subIter.hasNext() ? subIter.next() : parentFolder.createFolder(positionName);
+      var decoded       = Utilities.base64Decode(data.resumeBase64);
+      var mimeType      = data.resumeMimeType || 'application/octet-stream';
+      var blob          = Utilities.newBlob(decoded, mimeType, data.resumeFileName);
+      var file          = subFolder.createFile(blob);
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      resumeLink        = file.getUrl();
+    } catch (driveErr) {
+      resumeLink = 'Upload error: ' + driveErr.message;
+    }
   }
 
+  // Always write the row — even if the Drive upload failed.
   sheet.appendRow([
     new Date().toLocaleString('en-GB', { timeZone: 'UTC' }),
     data.openPosition           || '',
