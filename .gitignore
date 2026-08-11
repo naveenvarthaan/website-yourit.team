@@ -42,3 +42,9 @@ build/
 # --- Leftover broken git stubs (mount-permission residue) ---
 .git_old/
 .git_old2/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
