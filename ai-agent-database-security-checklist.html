@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFMPS81GNG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MFMPS81GNG');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent &amp; Database Security Checklist | YourIT.Team</title>
+  <meta name="description" content="Use this free 36-point checklist to assess your AI agent database security posture. Get an instant score and actionable recommendations.">
+  <meta name="keywords" content="AI agent security, database security checklist, LLM security, AI database guardrails, prompt injection, least privilege AI">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ── Checklist Page Styles ── */
+    .checklist-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .checklist-layout { grid-template-columns: 1fr; }
+      .checklist-sidebar { order: -1; }
+    }
+
+    /* Section groups */
+    .checklist-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .checklist-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 28px;
+      background: var(--light-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .checklist-section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .checklist-section-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+    .checklist-section-header p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 2px 0 0;
+    }
+    .checklist-badge {
+      margin-left: auto;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* Questions */
+    .question-list { padding: 8px 0; }
+    .question-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .question-item:last-child { border-bottom: none; }
+    .question-item:hover { background: #f9fafb; }
+    .question-item.answered-yes { background: #f0fdf4; }
+    .question-item.answered-no  { background: #fff5f5; }
+
+    .question-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .question-text {
+      flex: 1;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .question-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .radio-group {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .radio-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.15s;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .radio-btn input[type="radio"] { display: none; }
+    .radio-btn.yes-selected {
+      background: #dcfce7;
+      border-color: #16a34a;
+      color: #16a34a;
+    }
+    .radio-btn.no-selected {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #dc2626;
+    }
+    .radio-btn:hover { border-color: var(--blue); }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-header span { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+    .progress-header strong { font-size: 0.85rem; color: var(--primary); }
+    .progress-bar-track {
+      height: 8px;
+      background: var(--light-bg);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius: 8px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Sidebar result card */
+    .checklist-sidebar { position: sticky; top: 100px; }
+    .result-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .result-placeholder {
+      padding: 20px 0;
+    }
+    .result-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--light-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.6rem;
+      color: var(--text-muted);
+    }
+    .result-placeholder h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .result-placeholder p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .result-content { display: none; }
+    .chart-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+    }
+    .chart-center-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .chart-score-num {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .chart-score-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .result-band {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .band-green  { background: #dcfce7; color: #16a34a; }
+    .band-yellow { background: #fef9c3; color: #ca8a04; }
+    .band-orange { background: #ffedd5; color: #ea580c; }
+    .band-red    { background: #fee2e2; color: #dc2626; }
+
+    .result-headline {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .result-comment {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .result-breakdown {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .result-breakdown-item {
+      flex: 1;
+      padding: 10px 6px;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .result-breakdown-item .num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      line-height: 1;
+    }
+    .result-breakdown-item .lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .breakdown-yes { background: #f0fdf4; }
+    .breakdown-yes .num { color: #16a34a; }
+    .breakdown-no  { background: #fff5f5; }
+    .breakdown-no .num  { color: #dc2626; }
+
+    .result-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a3a6b 100%);
+      border-radius: var(--radius);
+      padding: 18px;
+      color: #fff;
+      margin-top: 4px;
+    }
+    .result-cta p {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .result-cta a {
+      display: block;
+      background: var(--teal);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .result-cta a:hover { opacity: 0.9; }
+
+    /* Reset button */
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.15s;
+    }
+    .btn-reset:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* Subsection label inside page-2 groups */
+    .subsection-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .subsection-label:first-child { border-top: none; margin-top: 0; }
+
+    @media (max-width: 680px) {
+      .question-item { flex-direction: column; gap: 10px; }
+      .radio-group { align-self: flex-start; }
+      .checklist-section-header { padding: 16px 18px; }
+      .question-item { padding: 14px 18px; }
+      .subsection-label { padding: 10px 18px 2px; }
+    }
+
+    /* ── Mode selector ── */
+    .mode-selector {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 600px) { .mode-selector { flex-direction: column; } }
+    .mode-card {
+      flex: 1;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+    .mode-card:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); }
+    .mode-card.active { border-color: var(--blue); background: #eff6ff; }
+    .mode-card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .mode-card-body { flex: 1; }
+    .mode-card-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .mode-card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+    .mode-card-badge {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .mode-card.active .mode-card-badge { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    /* Sidebar progress text */
+    .sidebar-progress {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon"><i class="fa-solid fa-database"></i></div>
+        YourIT.<span>Team</span>
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item">
+          <a href="index.html#services" class="nav-link">Services <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="database-administration.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-server"></i></div>
+              <div class="dropdown-item-text"><strong>Database Administration</strong><span>10 leading platforms</span></div>
+            </a>
+            <a href="etl-engineering.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+              <div class="dropdown-item-text"><strong>ETL / ELT Engineering</strong><span>Batch &amp; real-time pipelines</span></div>
+            </a>
+            <a href="cloud-data-azure.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-brands fa-microsoft"></i></div>
+              <div class="dropdown-item-text"><strong>Cloud Data &amp; Azure</strong><span>Synapse, Fabric &amp; beyond</span></div>
+            </a>
+            <a href="bi-dashboards.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-chart-bar"></i></div>
+              <div class="dropdown-item-text"><strong>BI &amp; Dashboard Services</strong><span>Power BI &amp; embedded analytics</span></div>
+            </a>
+            <a href="data-architecture.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-sitemap"></i></div>
+              <div class="dropdown-item-text"><strong>Data Architecture</strong><span>Lakehouse, mesh &amp; modelling</span></div>
+            </a>
+            <a href="data-governance.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="dropdown-item-text"><strong>Data Governance &amp; Security</strong><span>Compliance &amp; audit-ready</span></div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="blog.html" class="nav-link active">Resources <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="blog.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-newspaper"></i></div>
+              <div class="dropdown-item-text"><strong>Blog</strong><span>Trends, guides &amp; insights</span></div>
+            </a>
+            <a href="case-studies.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-briefcase"></i></div>
+              <div class="dropdown-item-text"><strong>Case Studies</strong><span>Real-world client outcomes</span></div>
+            </a>
+            <a href="ai-agent-database-security-checklist.html" class="dropdown-item">
+              <div class="dropdown-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="dropdown-item-text"><strong>AI Security Checklist</strong><span>Rate your AI agent posture</span></div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="careers.html" class="nav-link">Careers</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="contact.html" class="btn btn-primary">Get a Free Consultation <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="container">
+    <div class="page-header-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="blog.html">Resources</a>
+        <span>/</span>
+        <span style="color:rgba(255,255,255,0.70);">AI Security Checklist</span>
+      </div>
+      <h1>AI Agent &amp; Database Security Checklist</h1>
+      <p>36 practical controls to assess your security posture before giving AI agents broader production access. Answer Yes or No — get your score instantly.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:8px 16px;border-radius:8px;">
+          <i class="fa-solid fa-list-check" style="color:var(--teal);"></i>
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">36 Controls</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:8px 16px;border-radius:8px;">
+          <i class="fa-solid fa-clock" style="color:var(--teal);"></i>
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">~15 Minutes</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:8px 16px;border-radius:8px;">
+          <i class="fa-solid fa-chart-pie" style="color:var(--teal);"></i>
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">Instant Score</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CHECKLIST SECTION -->
+<section class="section" style="background:var(--light-bg);">
+  <div class="container">
+
+    <!-- Mode selector -->
+    <div class="mode-selector reveal">
+      <div class="mode-card" id="mode-short" onclick="selectMode('short')">
+        <div class="mode-card-icon" style="background:var(--blue);">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">5-Minute Executive Check</div>
+          <div class="mode-card-desc">12 high-level questions to quickly gauge whether your AI agents need a deeper security review.</div>
+          <span class="mode-card-badge">12 Questions</span>
+        </div>
+      </div>
+      <div class="mode-card" id="mode-full" onclick="selectMode('full')">
+        <div class="mode-card-icon" style="background:var(--purple);">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">15-Minute Full Checklist</div>
+          <div class="mode-card-desc">All 36 controls across identity, authorization, tool use, prompt injection, and audit — for a complete security assessment.</div>
+          <span class="mode-card-badge">36 Questions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="checklist-layout" id="checklist-layout" style="display:none;">
+
+      <!-- LEFT: Questions -->
+      <div class="checklist-main">
+
+        <!-- SECTION 1: Executive Check -->
+        <div class="checklist-section reveal" data-delay="100">
+          <div class="checklist-section-header">
+            <div class="checklist-section-icon" style="background:var(--blue);">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <h3>Section 1: 15-Minute Executive Check</h3>
+              <p>If you cannot confidently answer YES, the agent may need a security review.</p>
+            </div>
+            <div class="checklist-badge">12 Questions</div>
+          </div>
+          <div class="question-list" id="section1"></div>
+        </div>
+
+        <!-- SECTION 2: Database Guardrails -->
+        <div class="checklist-section reveal" data-delay="150">
+          <div class="checklist-section-header">
+            <div class="checklist-section-icon" style="background:var(--purple);">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+              <h3>Section 2: Database Guardrails for AI Agents</h3>
+              <p>Detailed technical controls across identity, authorization, tooling, and monitoring.</p>
+            </div>
+            <div class="checklist-badge">24 Questions</div>
+          </div>
+          <div class="question-list" id="section2"></div>
+        </div>
+
+      </div><!-- /.checklist-main -->
+
+      <!-- RIGHT: Sticky result card -->
+      <div class="checklist-sidebar reveal" data-delay="200">
+        <div class="result-card">
+          <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--primary);margin-bottom:4px;">Your Security Score</h4>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:6px;" id="sidebar-intro-text">Complete all questions to reveal your score.</p>
+          <p class="sidebar-progress" id="progress-text" style="display:none;">Progress: 0 of 36 answered</p>
+
+          <!-- Placeholder state -->
+          <div class="result-placeholder" id="result-placeholder">
+            <div class="result-placeholder-icon">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h4>Answer All Questions</h4>
+            <p id="placeholder-body-text">Select a checklist mode above, then answer all questions to reveal your score and recommendations.</p>
+            <div style="margin-top:20px;background:var(--light-bg);border-radius:var(--radius);padding:14px;">
+              <div style="font-size:0.78rem;color:var(--text-muted);text-align:left;line-height:1.7;">
+                <div><i class="fa-solid fa-circle-check" style="color:var(--teal);margin-right:6px;"></i>Instant pie chart visualisation</div>
+                <div><i class="fa-solid fa-circle-check" style="color:var(--teal);margin-right:6px;"></i>Risk band assessment</div>
+                <div><i class="fa-solid fa-circle-check" style="color:var(--teal);margin-right:6px;"></i>Actionable next steps</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result state (hidden until all answered) -->
+          <div class="result-content" id="result-content">
+            <div class="chart-wrap">
+              <canvas id="scoreChart"></canvas>
+              <div class="chart-center-label">
+                <div class="chart-score-num" id="score-pct-label">0%</div>
+                <div class="chart-score-label">Score</div>
+              </div>
+            </div>
+
+            <div class="result-band" id="result-band-label"></div>
+            <div class="result-headline" id="result-headline"></div>
+            <p class="result-comment" id="result-comment"></p>
+
+            <div class="result-breakdown">
+              <div class="result-breakdown-item breakdown-yes">
+                <div class="num" id="yes-count">0</div>
+                <div class="lbl">YES</div>
+              </div>
+              <div class="result-breakdown-item breakdown-no">
+                <div class="num" id="no-count">0</div>
+                <div class="lbl">NO</div>
+              </div>
+              <div class="result-breakdown-item" style="background:#f0f4ff;">
+                <div class="num" style="color:var(--blue);" id="total-count">36</div>
+                <div class="lbl">Total</div>
+              </div>
+            </div>
+
+            <div class="result-cta">
+              <p>AI agents are often connected to enterprise data faster than access models are redesigned. Let YourIT.Team help close the gaps.</p>
+              <a href="contact.html">Book a Free Security Review <i class="fa-solid fa-arrow-right" style="margin-left:4px;"></i></a>
+            </div>
+
+            <button class="btn-reset" id="reset-btn">
+              <i class="fa-solid fa-rotate-left" style="margin-right:5px;"></i>Reset Checklist
+            </button>
+          </div>
+
+        </div><!-- /.result-card -->
+
+        <!-- Download note -->
+        <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:20px;box-shadow:var(--shadow);">
+          <p style="font-size:0.78rem;color:var(--text-muted);line-height:1.6;margin:0;">
+            <i class="fa-solid fa-circle-info" style="color:var(--blue);margin-right:6px;"></i>
+            Based on widely-used AI security guidance including OWASP Top 10 for LLM/GenAI, NIST AI RMF, and Microsoft least-privilege identity guidance. Not a substitute for a formal security assessment.
+          </p>
+        </div>
+      </div><!-- /.checklist-sidebar -->
+
+    </div><!-- /.checklist-layout -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon"><i class="fa-solid fa-database"></i></div>
+          YourIT.<span>Team</span>
+        </a>
+        <p>Your trusted single partner for complete data management — from ingestion to insights, under one roof.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul class="footer-links">
+          <li><a href="database-administration.html">Database Administration</a></li>
+          <li><a href="etl-engineering.html">ETL / ELT Engineering</a></li>
+          <li><a href="cloud-data-azure.html">Cloud Data &amp; Azure</a></li>
+          <li><a href="bi-dashboards.html">BI &amp; Dashboard Services</a></li>
+          <li><a href="data-architecture.html">Data Architecture</a></li>
+          <li><a href="data-governance.html">Data Governance &amp; Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html#mission">Our Mission</a></li>
+          <li><a href="about.html#values">Our Values</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Get in Touch</h5>
+        <ul class="footer-links">
+          <li><a href="contact.html"><i class="fa-solid fa-envelope" style="margin-right:6px;"></i> naveen@yourit.team</a></li>
+          <li><a href="contact.html" class="btn btn-teal" style="margin-top:12px;padding:10px 20px;font-size:0.82rem;">Book Consultation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 YourIT.Team. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// Exposed globally so onclick="selectMode(...)" works
+function selectMode(mode) { _checklist.selectMode(mode); }
+
+const _checklist = (function () {
+  // ── Question data ──────────────────────────────────────────────────────────
+  const section1Questions = [
+    {
+      q: "Does every AI agent have its own dedicated identity?",
+      hint: "Avoid shared user accounts, embedded credentials, or one service identity reused by multiple agents."
+    },
+    {
+      q: "Is there a named human owner for every agent?",
+      hint: "Someone should be accountable for purpose, permissions, approvals, incidents and decommissioning."
+    },
+    {
+      q: "Is database access configured with least-privilege permissions?",
+      hint: "Grant only the schemas, tables, views, rows and operations needed for the agent's specific task."
+    },
+    {
+      q: "Are read and write capabilities separated for AI agents?",
+      hint: "A retrieval agent usually should not inherit INSERT, UPDATE, DELETE, DDL or administrative privileges."
+    },
+    {
+      q: "Are high-impact actions (deletion, bulk updates, exports) approval-gated?",
+      hint: "Irreversible actions should require stronger controls or human approval."
+    },
+    {
+      q: "Is the agent's access to sensitive data it doesn't need properly restricted?",
+      hint: "Review PII, financial, HR, customer, credential, regulated and confidential business data."
+    },
+    {
+      q: "Are agent tools and actions allowlisted to only approved operations?",
+      hint: "The agent should invoke only approved database procedures, APIs and tools rather than unrestricted interfaces."
+    },
+    {
+      q: "Is untrusted content (email, documents, web pages) prevented from influencing database actions?",
+      hint: "Email, documents, web pages and retrieved text can carry prompt-injection instructions; treat them as untrusted input."
+    },
+    {
+      q: "Are queries and outputs constrained using parameterization, validation, and limits?",
+      hint: "Use row/volume limits, timeouts and safe interfaces rather than letting model-generated text execute unchecked."
+    },
+    {
+      q: "Is every database action fully attributable to a specific agent and user?",
+      hint: "Logs should identify the agent, initiating user, time, resource, operation, result and correlation context."
+    },
+    {
+      q: "Can you quickly disable the agent by revoking identity, tokens, and permissions?",
+      hint: "Test a kill switch: revoke identity, invalidate tokens, rotate credentials and remove permissions without waiting for application changes."
+    },
+    {
+      q: "Are agent permissions periodically re-reviewed as tools and workflows evolve?",
+      hint: "Permissions appropriate for a pilot can become dangerous as tools, workflows and connected data expand."
+    }
+  ];
+
+  const section2Questions = [
+    // A. Identity & Ownership
+    { subsection: "A. Identity &amp; Ownership", q: "Does each agent have a dedicated identity (not shared with other agents or users)?", hint: "Do not let an autonomous agent masquerade as a shared human or generic service account." },
+    { q: "Is there a named owner and documented business purpose for every agent?", hint: "Document why the agent exists, who approves access and who responds when behavior is unexpected." },
+    { q: "Are agent credentials managed with short-lived tokens and tested revocation?", hint: "Prefer managed/federated identity and short-lived credentials where possible; rotate secrets and test revocation." },
+    { q: "Are separate identities maintained across dev, test, and production environments?", hint: "Do not let a development agent inherit production access simply because the workflow is similar." },
+
+    // B. Authorization & Data Boundaries
+    { subsection: "B. Authorization &amp; Data Boundaries", q: "Are task-scoped roles assigned based on the smallest useful task (not broad team membership)?", hint: "Create roles around the smallest useful task, not broad team membership." },
+    { q: "Is database access defaulted to read-only unless writes are explicitly required?", hint: "Start with SELECT-only access unless writes are explicitly required." },
+    { q: "Is data surface limited to approved views, stored procedures, or APIs (not raw table access)?", hint: "Prefer approved views, stored procedures, APIs or data products over unrestricted database/table access." },
+    { q: "Are sensitive fields classified and protected from unnecessary retrieval or export?", hint: "Classify sensitive fields and prevent unnecessary retrieval, summarization or export." },
+    { q: "Is row, tenant, and environment isolation enforced for multi-tenant agents?", hint: "Ensure an agent serving one customer or tenant cannot cross the intended data boundary." },
+    { q: "Is privilege elevation time-bound and temporary when elevated access is required?", hint: "If privileged work is necessary, elevate narrowly and temporarily rather than leaving permanent admin rights." },
+
+    // C. Safe Actions & Tool Use
+    { subsection: "C. Safe Actions &amp; Tool Use", q: "Are tools and database operations allowlisted (no unrestricted general admin interface exposed)?", hint: "Expose only approved actions. Avoid giving the model a general-purpose database administration interface." },
+    { q: "Do high-impact actions (DROP, mass DELETE, schema changes, exports) require human approval?", hint: "Gate DROP/TRUNCATE, mass UPDATE/DELETE, privilege changes, schema changes, exports and other high-impact actions." },
+    { q: "Is model-generated output treated as untrusted and validated before SQL execution?", hint: "Validate identifiers and parameters; do not concatenate free-form model text into executable SQL." },
+    { q: "Is there a defined transaction and rollback strategy for write workflows?", hint: "For write workflows, define transaction boundaries, idempotency, backups/restore points and recovery procedures." },
+    { q: "Are rate limits, row caps, and cost limits enforced to contain runaway queries?", hint: "Limit query volume, rows returned, runtime, concurrency and expensive operations to contain runaway behavior." },
+
+    // D. Prompt Injection & Data Exfiltration
+    { subsection: "D. Prompt Injection &amp; Data Exfiltration", q: "Is content retrieved by the agent (documents, tickets, email) treated as untrusted input?", hint: "Instructions found in documents, tickets, email, webpages or database text must not override authorization policy." },
+    { q: "Are system instructions and authorization policies kept outside agent-retrievable content?", hint: "Keep system policy, tool permissions and authorization outside content the agent can retrieve or modify." },
+    { q: "Are outbound data channels restricted to prevent unauthorized data exfiltration?", hint: "Restrict where the agent can send query results, attachments or summaries; prevent arbitrary exfiltration paths." },
+    { q: "Is only the minimum required data retrieved and placed into agent prompts?", hint: "Retrieve only the minimum records/columns needed and avoid placing secrets or unnecessary sensitive data into prompts." },
+    { q: "Have adversarial scenarios (prompt injection, cross-tenant access, data extraction) been actively tested?", hint: "Test direct and indirect prompt injection, attempts to bypass tool rules, cross-tenant access and sensitive-data extraction." },
+
+    // E. Audit, Monitoring & Incident Response
+    { subsection: "E. Audit, Monitoring &amp; Incident Response", q: "Is there an end-to-end audit trail capturing agent identity, actions, tool calls, and results?", hint: "Capture agent identity, initiating principal, prompt/workflow correlation, tool call, SQL action, target, result and approval." },
+    { q: "Is behavioral monitoring alerting on unusual query volume, bulk exports, or failed authorization?", hint: "Alert on unusual query volume, sensitive-table access, bulk exports, failed authorization, privilege use and destructive statements." },
+    { q: "Is there a tested emergency shutdown procedure to quickly revoke all agent access?", hint: "Maintain and rehearse a fast method to disable the agent and invalidate active access." },
+    { q: "Are permissions re-reviewed whenever the model, tools, data sources, or workflow changes?", hint: "Reassess effective permissions whenever the model, tools, data sources, workflow or deployment environment changes." }
+  ];
+
+  // ── Scoring bands ──────────────────────────────────────────────────────────
+  // 12-question bands (from document directly)
+  const bands12 = [
+    {
+      min: 10, max: 12,
+      label: "Controlled Foundation",
+      cssClass: "band-green",
+      headline: "Strong security posture — well done.",
+      comment: "Your controls suggest a controlled foundation. Validate that technical enforcement is actually in place (not just policy intent), and continue periodic access reviews as your agent ecosystem evolves."
+    },
+    {
+      min: 7, max: 9,
+      label: "Gaps Exist",
+      cssClass: "band-yellow",
+      headline: "Some controls are missing or incomplete.",
+      comment: "Material gaps exist in your AI agent security posture. Prioritize the 'No' answers before expanding agent autonomy or connecting agents to additional production databases."
+    },
+    {
+      min: 4, max: 6,
+      label: "Material Exposure",
+      cssClass: "band-orange",
+      headline: "Significant exposure — action required.",
+      comment: "Your environment has material security exposure. A focused AI Agent + Database Security Assessment is recommended to identify the highest-priority gaps and remediation actions before incidents occur."
+    },
+    {
+      min: 0, max: 3,
+      label: "High Concern",
+      cssClass: "band-red",
+      headline: "High risk — restrict access immediately.",
+      comment: "Your AI agents have high-concern exposure across multiple domains. Restrict production database access until identity, scope and guardrails are established. Engage a security review without delay."
+    }
+  ];
+
+  // 36-question bands (scaled ×3 from the 12-question table)
+  const bands36 = [
+    {
+      min: 30, max: 36,
+      label: "Controlled Foundation",
+      cssClass: "band-green",
+      headline: "Strong security posture — well done.",
+      comment: "Your controls suggest a controlled foundation. Validate that technical enforcement is actually in place (not just policy intent), and continue periodic access reviews as your agent ecosystem evolves."
+    },
+    {
+      min: 21, max: 29,
+      label: "Gaps Exist",
+      cssClass: "band-yellow",
+      headline: "Some controls are missing or incomplete.",
+      comment: "Material gaps exist in your AI agent security posture. Prioritize the 'No' answers before expanding agent autonomy or connecting agents to additional production databases."
+    },
+    {
+      min: 13, max: 20,
+      label: "Material Exposure",
+      cssClass: "band-orange",
+      headline: "Significant exposure — action required.",
+      comment: "Your environment has material security exposure. A focused AI Agent + Database Security Assessment is recommended to identify the highest-priority gaps and remediation actions before incidents occur."
+    },
+    {
+      min: 0, max: 12,
+      label: "High Concern",
+      cssClass: "band-red",
+      headline: "High risk — restrict access immediately.",
+      comment: "Your AI agents have high-concern exposure across multiple domains. Restrict production database access until identity, scope and guardrails are established. Engage a security review without delay."
+    }
+  ];
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let currentMode = null; // 'short' | 'full'
+  let totalQ = 0;
+  let answers = [];
+  let chartInstance = null;
+
+  // ── Render questions ───────────────────────────────────────────────────────
+  function renderQuestion(q, globalIndex, container) {
+    const item = document.createElement('div');
+    item.className = 'question-item';
+    item.id = `q-item-${globalIndex}`;
+    item.innerHTML = `
+      <div class="question-num">${globalIndex + 1}</div>
+      <div class="question-text">
+        ${q.q}
+        ${q.hint ? `<div class="question-hint">${q.hint}</div>` : ''}
+      </div>
+      <div class="radio-group">
+        <label class="radio-btn yes" id="yes-lbl-${globalIndex}">
+          <input type="radio" name="q${globalIndex}" value="yes">
+          <i class="fa-solid fa-check" style="font-size:0.7rem;"></i> Yes
+        </label>
+        <label class="radio-btn no" id="no-lbl-${globalIndex}">
+          <input type="radio" name="q${globalIndex}" value="no">
+          <i class="fa-solid fa-xmark" style="font-size:0.7rem;"></i> No
+        </label>
+      </div>`;
+    container.appendChild(item);
+
+    item.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        answers[globalIndex] = radio.value;
+        updateQuestionStyle(globalIndex);
+        updateProgress();
+        checkComplete();
+      });
+    });
+  }
+
+  function renderSubsectionLabel(text, container) {
+    const lbl = document.createElement('div');
+    lbl.className = 'subsection-label';
+    lbl.innerHTML = `<i class="fa-solid fa-grip-lines" style="font-size:0.6rem;"></i>${text}`;
+    container.appendChild(lbl);
+  }
+
+  // ── Build questions (once on page load) ───────────────────────────────────
+  function buildOnce() {
+    const s1 = document.getElementById('section1');
+    const s2 = document.getElementById('section2');
+
+    section1Questions.forEach((q, i) => renderQuestion(q, i, s1));
+
+    let globalIdx = 12;
+    section2Questions.forEach(q => {
+      if (q.subsection) renderSubsectionLabel(q.subsection, s2);
+      renderQuestion(q, globalIdx, s2);
+      globalIdx++;
+    });
+  }
+
+  // ── Style answered questions ───────────────────────────────────────────────
+  function updateQuestionStyle(i) {
+    const item = document.getElementById(`q-item-${i}`);
+    const yesLbl = document.getElementById(`yes-lbl-${i}`);
+    const noLbl  = document.getElementById(`no-lbl-${i}`);
+    item.classList.remove('answered-yes', 'answered-no');
+    yesLbl.classList.remove('yes-selected');
+    noLbl.classList.remove('no-selected');
+    if (answers[i] === 'yes') {
+      item.classList.add('answered-yes');
+      yesLbl.classList.add('yes-selected');
+    } else if (answers[i] === 'no') {
+      item.classList.add('answered-no');
+      noLbl.classList.add('no-selected');
+    }
+  }
+
+  // ── Progress text (sidebar) ────────────────────────────────────────────────
+  function updateProgress() {
+    const answered = answers.filter(a => a !== null).length;
+    document.getElementById('progress-text').textContent = `Progress: ${answered} of ${totalQ} answered`;
+  }
+
+  // ── Check completion & show results ───────────────────────────────────────
+  function checkComplete() {
+    if (answers.slice(0, totalQ).every(a => a !== null)) showResults();
+  }
+
+  function showResults() {
+    const relevant = answers.slice(0, totalQ);
+    const yesCount = relevant.filter(a => a === 'yes').length;
+    const noCount  = totalQ - yesCount;
+    const pct = Math.round((yesCount / totalQ) * 100);
+
+    const bandSet = currentMode === 'short' ? bands12 : bands36;
+    const band = bandSet.find(b => yesCount >= b.min && yesCount <= b.max);
+
+    document.getElementById('score-pct-label').textContent = pct + '%';
+    document.getElementById('yes-count').textContent = yesCount;
+    document.getElementById('no-count').textContent = noCount;
+    document.getElementById('total-count').textContent = totalQ;
+
+    const bandEl = document.getElementById('result-band-label');
+    bandEl.textContent = band.label;
+    bandEl.className = 'result-band ' + band.cssClass;
+
+    document.getElementById('result-headline').textContent = band.headline;
+    document.getElementById('result-comment').textContent = band.comment;
+
+    document.getElementById('result-placeholder').style.display = 'none';
+    document.getElementById('progress-text').style.display = 'none';
+    document.getElementById('result-content').style.display = 'block';
+
+    const ctx = document.getElementById('scoreChart').getContext('2d');
+    const chartColors = {
+      'band-green':  { yes: '#16a34a', no: '#dcfce7' },
+      'band-yellow': { yes: '#ca8a04', no: '#fef9c3' },
+      'band-orange': { yes: '#ea580c', no: '#ffedd5' },
+      'band-red':    { yes: '#dc2626', no: '#fee2e2' }
+    };
+    const colors = chartColors[band.cssClass];
+
+    if (chartInstance) { chartInstance.destroy(); }
+    chartInstance = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [yesCount, noCount],
+          backgroundColor: [colors.yes, colors.no],
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        cutout: '72%',
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        animation: { animateScale: true, duration: 700 }
+      }
+    });
+
+    if (window.innerWidth <= 1024) {
+      document.querySelector('.checklist-sidebar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // ── Mode selection ─────────────────────────────────────────────────────────
+  function selectMode(mode) {
+    currentMode = mode;
+    totalQ = mode === 'short' ? 12 : 36;
+    answers = new Array(36).fill(null);
+
+    // Reset all question visuals
+    for (let i = 0; i < 36; i++) {
+      const item = document.getElementById(`q-item-${i}`);
+      if (!item) continue;
+      item.classList.remove('answered-yes', 'answered-no');
+      document.getElementById(`yes-lbl-${i}`).classList.remove('yes-selected');
+      document.getElementById(`no-lbl-${i}`).classList.remove('no-selected');
+      item.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    }
+
+    // Show/hide section 2
+    const sec2 = document.getElementById('section2').closest('.checklist-section');
+    sec2.style.display = mode === 'full' ? '' : 'none';
+
+    // Update mode card active states
+    document.getElementById('mode-short').classList.toggle('active', mode === 'short');
+    document.getElementById('mode-full').classList.toggle('active', mode === 'full');
+
+    // Update sidebar text
+    const label = mode === 'short' ? '12' : '36';
+    document.getElementById('sidebar-intro-text').textContent = `Complete all ${label} questions to reveal your score.`;
+    document.getElementById('placeholder-body-text').textContent =
+      `Your security score and personalised recommendations will appear here once you've answered all ${label} controls.`;
+
+    // Reset result card
+    document.getElementById('result-placeholder').style.display = '';
+    document.getElementById('result-content').style.display = 'none';
+    document.getElementById('progress-text').style.display = 'block';
+    if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+
+    // Show checklist
+    document.getElementById('checklist-layout').style.display = '';
+
+    updateProgress();
+  }
+
+  // ── Reset (from button inside result card) ────────────────────────────────
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (currentMode) selectMode(currentMode);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  buildOnce();
+
+  return { selectMode };
+})();
+</script>
+
+</body>
+</html>
