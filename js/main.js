@@ -317,6 +317,68 @@ if (futureOpportunitiesForm) {
   });
 }
 
+// --- SME Partner Network intro form ---
+const smeForm = document.getElementById('smeForm');
+if (smeForm) {
+  smeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = smeForm.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+
+    const checkedStacks = Array.from(
+      smeForm.querySelectorAll('input[name="primaryTechStack"]:checked')
+    ).map(cb => cb.value);
+
+    const checkedEngagements = Array.from(
+      smeForm.querySelectorAll('input[name="engagementPreferences"]:checked')
+    ).map(cb => cb.value);
+
+    if (checkedStacks.length === 0) {
+      showToast('Please select at least one primary tech stack.');
+      return;
+    }
+    if (checkedEngagements.length === 0) {
+      showToast('Please select at least one engagement type you are open to.');
+      return;
+    }
+
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    btn.disabled = true;
+
+    const payload = {
+      type:                     'sme_intro',
+      fullName:                 (smeForm.elements.fullName.value || '').trim(),
+      email:                    (smeForm.elements.email.value || '').trim(),
+      phone:                    (smeForm.elements.phone.value || '').trim(),
+      linkedInURL:              (smeForm.elements.linkedInURL.value || '').trim(),
+      yearsOfExperience:        (smeForm.elements.yearsOfExperience.value || '').trim(),
+      primaryTechStack:         checkedStacks.join(', '),
+      architecturalSweetSpot:   (smeForm.elements.architecturalSweetSpot.value || '').trim(),
+      engagementPreferences:    checkedEngagements.join(', '),
+      advisoryRate:             (smeForm.elements.advisoryRate.value || '').trim(),
+      deliveryRate:             (smeForm.elements.deliveryRate.value || '').trim(),
+      bandwidth:                (smeForm.elements.bandwidth.value || '').trim(),
+    };
+
+    try {
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+      });
+      smeForm.reset();
+      showToast('You\'re in our priority network! We\'ll reach out when a matching engagement lands.');
+    } catch (err) {
+      showToast('Something went wrong. Please email us directly at naveen@yourit.team');
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  });
+}
+
 // --- Active nav link based on page ---
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('.nav-link').forEach(link => {

@@ -25,8 +25,10 @@
  *   The Web App URL stays the same — no changes needed in the website code.
  *
  * ── SHEETS ───────────────────────────────────────────────────────────────────
- *   Contact form  →  "Leads"   sheet  (auto-created on first submission)
- *   Careers form  →  "Careers" sheet  (auto-created on first submission)
+ *   Contact form     →  "Leads"               sheet  (auto-created on first submission)
+ *   Careers form     →  "Careers"             sheet  (auto-created on first submission)
+ *   Future Opp. form →  "Future Opportunities" sheet  (auto-created on first submission)
+ *   SME Intro form   →  "SME Partner Roster"   sheet  (auto-created on first submission)
  *
  * ── DRIVE FOLDER ─────────────────────────────────────────────────────────────
  *   Resumes are uploaded to:
@@ -37,6 +39,7 @@ var RESUME_FOLDER_ID      = '1zU5f7YtLbR9rs5OsN7RuABmzhQOrp4cb';
 var LEADS_SHEET           = 'Leads';
 var CAREERS_SHEET         = 'Careers';
 var FUTURE_OPP_SHEET      = 'Future Opportunities';
+var SME_INTRO_SHEET       = 'SME Partner Roster';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Run this function ONCE manually in the editor to grant DriveApp permission
@@ -57,6 +60,8 @@ function doPost(e) {
       return handleCareers(data);
     } else if (data.type === 'future_opportunities') {
       return handleFutureOpportunities(data);
+    } else if (data.type === 'sme_intro') {
+      return handleSmeIntro(data);
     } else {
       return handleContact(data);
     }
@@ -145,6 +150,54 @@ function handleFutureOpportunities(data) {
     data.phone           || '',
     data.email           || '',
     data.linkedInURL     || '',
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ result: 'success' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SME Intro form → "SME Partner Roster" sheet
+// ─────────────────────────────────────────────────────────────────────────────
+function handleSmeIntro(data) {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SME_INTRO_SHEET);
+  if (!sheet) {
+    sheet = ss.insertSheet(SME_INTRO_SHEET);
+  }
+
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      'SubmittedDate',
+      'FullName',
+      'Email',
+      'Phone',
+      'LinkedInURL',
+      'YearsOfExperience',
+      'PrimaryTechStack',
+      'ArchitecturalSweetSpot',
+      'EngagementPreferences',
+      'AdvisoryRate',
+      'DeliveryRate',
+      'Bandwidth',
+    ]);
+    sheet.getRange(1, 1, 1, 12).setFontWeight('bold');
+  }
+
+  sheet.appendRow([
+    new Date().toLocaleString('en-GB', { timeZone: 'UTC' }),
+    data.fullName               || '',
+    data.email                  || '',
+    data.phone                  || '',
+    data.linkedInURL            || '',
+    data.yearsOfExperience      || '',
+    data.primaryTechStack       || '',
+    data.architecturalSweetSpot || '',
+    data.engagementPreferences  || '',
+    data.advisoryRate           || '',
+    data.deliveryRate           || '',
+    data.bandwidth              || '',
   ]);
 
   return ContentService
