@@ -58,7 +58,7 @@ input:focus,textarea:focus{outline:2px solid #3989ef}
 <section class="section alt" id="contact"><div class="wrap contactgrid"><div><div class="eyebrow">Get in touch</div><h2>Let's Make Your Data <span class="grad">AI-Ready.</span></h2><p>Tell us what you're building and where your data challenges are. We'll help identify the foundations that matter most.</p><p><strong>Database Administration · ETL/ELT · Azure · BI · Architecture · Governance</strong></p></div><form id="contactForm"><label for="name">Name</label><input id="name" name="name" required placeholder="Your name"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com"><label for="company">Company</label><input id="company" name="company" required placeholder="Company name"><label for="message">What can we help with?</label><textarea id="message" name="message" required placeholder="Tell us about your data or AI initiative"></textarea><div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div><button class="btn" type="submit" id="submitBtn">Submit</button><div id="status" role="status" aria-live="polite"></div></form></div></section></main>
 <footer><div class="wrap foot"><div class="brand">your<span>IT</span>.team</div><div>Better Data. Better AI. © <span id="year"></span></div><a href="#home">Back to top ↑</a></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();function toggleMenu(btn){const nav=document.getElementById('links');const open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('links').classList.remove('open');document.querySelector('.menu').setAttribute('aria-expanded','false')}));
-const CONTACT_ENDPOINT='https://script.google.com/macros/s/AKfycbycQgdzrA5zDDv6PoKBfSemRNV8IYiwR9_Rbilrbz1UQxrMnSRZuO3N4SRoeTX01HIQkg/exec';
+const CONTACT_ENDPOINT='https://script.google.com/macros/s/AKfycbzAfxZvcqmudOA6yNdLyB3a-ceox2KCHXnxMsb-E0aPl_6mKXuf-pQOPWNyyzWzUodUFg/exec';
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
   const form=this;const btn=document.getElementById('submitBtn');const status=document.getElementById('status');
@@ -66,8 +66,12 @@ document.getElementById('contactForm').addEventListener('submit',function(e){
   if(d.get('website')){return;}
   const payload={name:d.get('name')||'',email:d.get('email')||'',company:d.get('company')||'',message:d.get('message')||''};
   btn.disabled=true;status.textContent='Sending…';
-  fetch(CONTACT_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
-    .then(()=>{status.textContent='Thanks — your message has been sent. We\'ll be in touch shortly.';form.reset();})
+  fetch(CONTACT_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+    .then(r=>r.json())
+    .then(data=>{
+      if(data && data.ok){status.textContent='Thanks — your message has been sent. We\'ll be in touch shortly.';form.reset();}
+      else{status.textContent='We could not send your message. Please try again or email us directly.';}
+    })
     .catch(()=>{status.textContent='Something went wrong sending your message. Please try again in a moment.';})
     .finally(()=>{btn.disabled=false;});
 });
