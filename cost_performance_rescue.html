@@ -131,9 +131,8 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-s
           <h3>Your Sample Pack Is Ready</h3>
           <p>Thanks for requesting the pack. Download both PDFs below:</p>
           <div class="dl-actions">
-            <!-- Update href values below to match where you host the PDF files on your server or Google Drive -->
-            <a class="btn" href="YourIT_Team_Cost_Performance_Rescue_Report.pdf" target="_blank" rel="noopener">Download Sample Diagnostic Report (PDF) ↗</a>
-            <a class="btn outline" href="YourIT_Team_Cost_Performance_Rescue_Scope_of_Work.pdf" target="_blank" rel="noopener">Download 14-Day Scope of Work (PDF) ↗</a>
+            <button type="button" class="btn" id="dlReportBtn">Download Sample Diagnostic Report (PDF) ↓</button>
+            <button type="button" class="btn outline" id="dlScopeBtn">Download 14-Day Scope of Work (PDF) ↓</button>
           </div>
         </div>
       </div>
@@ -153,6 +152,25 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-s
 document.getElementById('year').textContent=new Date().getFullYear();
 function toggleMenu(btn){const nav=document.getElementById('links');const open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
 const CONTACT_ENDPOINT='https://script.google.com/macros/s/AKfycbzAfxZvcqmudOA6yNdLyB3a-ceox2KCHXnxMsb-E0aPl_6mKXuf-pQOPWNyyzWzUodUFg/exec';
+const REPORT_FILE='YourIT_Team_Cost_Performance_Rescue_Report.pdf';
+const SCOPE_FILE='YourIT_Team_Cost_Performance_Rescue_Scope_of_Work.pdf';
+function triggerDownload(path){
+  fetch(path)
+    .then(r=>{if(!r.ok)throw new Error('download failed');return r.blob();})
+    .then(blob=>{
+      const blobUrl=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=blobUrl;
+      a.download=path;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(blobUrl),4000);
+    })
+    .catch(()=>{});
+}
+document.getElementById('dlReportBtn').addEventListener('click',()=>triggerDownload(REPORT_FILE));
+document.getElementById('dlScopeBtn').addEventListener('click',()=>triggerDownload(SCOPE_FILE));
 document.getElementById('reportForm').addEventListener('submit',function(e){
   e.preventDefault();
   const form=this;
@@ -174,6 +192,8 @@ document.getElementById('reportForm').addEventListener('submit',function(e){
       if(data && data.ok){
         document.getElementById('formWrap').style.display='none';
         document.getElementById('unlockBox').classList.add('visible');
+        triggerDownload(REPORT_FILE);
+        setTimeout(()=>triggerDownload(SCOPE_FILE),600);
       } else {
         status.textContent='Could not verify submission. Please try again or email us directly.';
       }
