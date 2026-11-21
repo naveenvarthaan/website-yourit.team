@@ -1,121 +1,186 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Azure & SQL Cost + Performance Rescue — Free Sample Report | yourIT.team</title><meta name="description" content="See a real 14-day Azure & SQL Cost + Performance Rescue engagement: 35% lower monthly spend, 83% faster query latency, and zero third-party monitoring fees. Download the sample report and scope of work.">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Download the yourIT.team Azure & SQL Cost + Performance Rescue Sample Report and 14-Day Scope of Work.">
+<title>Sample Rescue Report | yourIT.team — Better Data. Better AI.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#1262d3;--dark:#102744;--muted:#526780;--line:#dce7f4;--pale:#f3f8ff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--dark);font-family:'DM Sans',Arial,sans-serif;line-height:1.65}h1,h2,h3,.brand{font-family:'Space Grotesk',Arial,sans-serif;line-height:1.17;letter-spacing:-.03em}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 26px}.nav{position:sticky;top:0;z-index:10;background:#ffffffed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.navin{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:700;font-size:24px;letter-spacing:-1px}.brand span{color:var(--blue)}.links{display:flex;gap:24px;align-items:center;font-size:14px}.links a:hover{color:var(--blue)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--blue);border:1px solid var(--blue);color:white;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;font:inherit}.btn:hover{background:#084fae}.btn.secondary{background:white;color:var(--blue);border-color:#b9d2f0}.btn[disabled]{opacity:.6;cursor:not-allowed}.menu{display:none;border:1px solid #c4d8f0;background:white;color:var(--blue);padding:9px 12px;border-radius:8px}
-.hero{padding:95px 0 70px;background:radial-gradient(ellipse at 85% 5%,#dcecff,transparent 50%),linear-gradient(180deg,#fff,#f6faff)}.eyebrow{color:var(--blue);text-transform:uppercase;font-weight:700;font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(38px,5vw,62px);max-width:870px;margin:18px 0}.grad{color:var(--blue)}.lead{font-size:19px;color:var(--muted);max-width:770px}
-.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:35px}.stat{border:1px solid #d0e2f7;background:white;border-radius:15px;padding:22px}.stat strong{display:block;font:700 30px 'Space Grotesk';color:var(--blue)}.stat span{color:var(--muted);font-size:13px}
-.section{padding:72px 0}.section.alt{background:var(--pale)}.section h2{font-size:clamp(28px,3.5vw,42px);margin:12px 0 20px}.sectionintro{font-size:17px;color:var(--muted);max-width:780px}
-.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}.wscard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:26px;box-shadow:0 8px 24px rgba(23,75,135,.045)}.wscard .tag{display:inline-block;background:#eaf3ff;color:#1957a0;font-size:11px;font-weight:700;padding:5px 10px;border-radius:100px;margin-bottom:12px}.wscard h3{font-size:19px;margin:0 0 10px}.wscard ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}.wscard li{margin-bottom:6px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{padding:22px;border:1px solid #d9e7f8;border-radius:15px;background:#fff}.step small{color:var(--blue);font-weight:700}.step h3{margin:10px 0 8px;font-size:17px}.step p{color:var(--muted);font-size:14px;margin:0}
-.deliverables{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px}.deliv{border:1px solid #d7e7f7;border-radius:16px;background:#fff;padding:22px}.deliv h3{margin:0 0 8px;font-size:17px;color:#185ba8}.deliv p{margin:0;color:var(--muted);font-size:14px}
-.gate{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}.gate p{color:var(--muted)}form{display:grid;gap:12px}input{font:inherit;background:#fff;border:1px solid #c3d6eb;border-radius:9px;color:#102744;padding:14px;width:100%}input:focus{outline:2px solid #3989ef}#status{font-size:14px;color:var(--blue);min-height:20px}
-.downloads{display:none;gap:12px;margin-top:6px;flex-wrap:wrap}.downloads.show{display:flex}.downloads .btn{flex:1;min-width:220px}
-.panel{border:1px solid #d8e7f7;border-radius:19px;background:white;padding:28px}
-.footer{border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media(max-width:900px){.statgrid{grid-template-columns:repeat(2,1fr)}.cards3{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.deliverables{grid-template-columns:1fr}.gate{grid-template-columns:1fr}.links{display:none;position:absolute;top:76px;left:0;right:0;background:white;padding:20px;flex-direction:column;align-items:start;box-shadow:0 12px 22px #12345612}.links.open{display:flex}.menu{display:block}}
-@media(max-width:620px){.statgrid,.steps{grid-template-columns:1fr}.hero{padding:68px 0}.section{padding:50px 0}.downloads .btn{min-width:0}}
-</style></head><body>
-<header class="nav"><div class="wrap navin"><a class="brand" href="index.html">your<span>IT</span>.team</a><button class="menu" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu(this)">☰ Menu</button><nav class="links" id="links"><a href="index.html#why">Why Data Matters</a><a href="index.html#services">Services</a><a href="index.html#approach">Our Approach</a><a href="case-studies.html">Case Studies</a><a href="blog.html">Blog</a><a href="index.html#usecases">AI Use Cases</a><a class="btn" href="index.html#contact">Let's Talk ↗</a></nav></div></header>
+:root{--bg:#ffffff;--panel:#ffffff;--panel2:#eff6ff;--text:#102744;--muted:#526780;--cyan:#1262d3;--blue:#3989ef;--line:#dce7f4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.65}
+h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif;line-height:1.14}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:auto;padding:0 26px}
+.nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);box-shadow:0 2px 18px rgba(18,70,132,.045)}
+.navin{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:24px}
+.brand{font-weight:700;font-size:24px;letter-spacing:-1px}
+.brand span{color:var(--cyan)}
+.links{display:flex;gap:27px;align-items:center;font-size:14px}
+.links a:hover{color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#1262d3;color:#fff;border:1px solid #1262d3;border-radius:10px;padding:13px 20px;font-weight:700;transition:.2s;cursor:pointer;font-size:15px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(18,98,211,.22);background:#084fae}
+.btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.btn.outline{background:#fff;color:#1254a4;border-color:#a9c8eb}
+.btn.outline:hover{border-color:#1262d3;background:#f1f7ff}
+.menu{display:none;background:none;color:#164f98;border:1px solid #b9d0e9;padding:8px 12px;border-radius:8px}
+.hero-gate{padding:72px 0 84px;background:radial-gradient(ellipse at 80% 28%,#dcecff 0,transparent 48%),radial-gradient(ellipse at 5% 90%,#f1f7ff 0,transparent 50%),#fff}
+.eyebrow{color:#1262d3;font-size:12px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase}
+.gate-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:start}
+h1{font-size:clamp(34px,4.5vw,52px);letter-spacing:-2px;margin:14px 0 16px}
+.grad{background:linear-gradient(100deg,#0751b7,#3188f2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--muted);margin:0 0 24px}
+.preview-list{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:12px}
+.preview-list li{background:#f4f9ff;border:1px solid var(--line);border-left:3px solid #1262d3;border-radius:10px;padding:14px 16px;font-size:15px}
+.preview-list strong{display:block;color:var(--text);margin-bottom:2px}
+.preview-list span{color:var(--muted);font-size:14px}
+.kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi-mini{background:#fff;border:1px solid #c9dff7;border-radius:12px;padding:14px;text-align:center;box-shadow:0 5px 18px rgba(23,75,135,.045)}
+.kpi-mini b{display:block;font-family:'Space Grotesk',sans-serif;font-size:22px;color:#1262d3}
+.kpi-mini small{font-size:12px;color:var(--muted)}
+.form-card{background:linear-gradient(145deg,#ffffff,#f7fbff);border:1px solid #c9dff7;border-radius:18px;padding:30px;box-shadow:0 12px 32px rgba(23,75,135,.08)}
+.form-card h2{font-size:24px;letter-spacing:-0.5px;margin:0 0 6px}
+.form-card p.sub{font-size:14px;color:var(--muted);margin:0 0 18px}
+form{display:grid;gap:12px}
+label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:-6px}
+input{font:inherit;background:#fff;border:1px solid #c3d6eb;border-radius:9px;color:#102744;padding:12px 14px;width:100%}
+input:focus{outline:2px solid #3989ef}
+#status{font-size:14px;color:#1262d3;min-height:20px}
+.unlock-box{display:none;background:#f3f8ff;border:1px solid #93c5fd;border-radius:14px;padding:22px;margin-top:8px}
+.unlock-box.visible{display:block}
+.unlock-box h3{margin:0 0 8px;font-size:20px;color:#1262d3}
+.unlock-box p{margin:0 0 16px;font-size:14px;color:var(--muted)}
+.dl-actions{display:grid;gap:10px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:850px){
+  .gate-grid{grid-template-columns:1fr}
+  .links{display:none;position:absolute;top:76px;left:0;right:0;background:#fff;padding:24px;flex-direction:column;align-items:flex-start;box-shadow:0 12px 20px rgba(12,51,99,.1)}
+  .links.open{display:flex}
+  .menu{display:block}
+}
+@media(max-width:550px){.kpi-strip{grid-template-columns:1fr}.hero-gate{padding:48px 0 60px}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap navin">
+    <a href="index.html" class="brand">your<span>IT</span>.team</a>
+    <button class="menu" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu(this)">☰ Menu</button>
+    <nav class="links" id="links">
+      <a href="index.html#why">Why Data Matters</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#approach">Our Approach</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="blog.html">Blog</a>
+      <a class="btn" href="index.html#contact">Let's Talk ↗</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-<section class="hero"><div class="wrap">
-<div class="eyebrow">Free sample deliverable · Database Administration</div>
-<h1>Azure &amp; SQL Cost + Performance Rescue, <span class="grad">Shown With Real Numbers.</span></h1>
-<p class="lead">See exactly what a 14-day fixed-scope rescue sprint looks like: the diagnostic approach, the before/after query tuning, and the Azure cost breakdown. Download the sample executive report and full scope of work below.</p>
-<div class="statgrid">
-<div class="stat"><strong>35%</strong><span>Lower monthly Azure spend ($62,160/yr)</span></div>
-<div class="stat"><strong>83%</strong><span>P95 query latency reduction</span></div>
-<div class="stat"><strong>$0/mo</strong><span>3rd-party monitoring cost, replaced</span></div>
-<div class="stat"><strong>18</strong><span>Critical fixes deployed in the sprint</span></div>
-</div>
-</div></section>
+  <section class="hero-gate">
+    <div class="wrap gate-grid">
+      <div>
+        <div class="eyebrow">Deliverable &amp; Scope Pack</div>
+        <h1>Azure &amp; SQL Cost + <span class="grad">Performance Rescue</span></h1>
+        <p class="lead">See exactly what our 14-day engineering sprint delivers before you book a call—including real before-and-after spend, query latency benchmarks, and zero-license native monitoring.</p>
 
-<section class="section"><div class="wrap">
-<div class="eyebrow">What you'll see inside</div>
-<h2>A Real Diagnostic, <span class="grad">Not a Sales Deck.</span></h2>
-<p class="sectionintro">The download includes two documents: the executive diagnostic report from a sample 14-day engagement, and the detailed scope of work that defines exactly what's delivered.</p>
-<div class="deliverables">
-<div class="deliv"><h3>01 / Executive Diagnostic &amp; Optimization Report</h3><p>Before/after Azure spend by resource, the top 5 slow queries with root-cause and remediation, and the native monitoring stack deployed to replace paid tooling.</p></div>
-<div class="deliv"><h3>02 / Scope of Work &amp; Deliverables</h3><p>The three workstreams, the day-by-day 14-day delivery timeline, end-of-engagement deliverables, and the access prerequisites needed to start.</p></div>
-</div>
-</div></section>
+        <ul class="preview-list">
+          <li>
+            <strong>1. Executive Diagnostic &amp; Optimization Report (PDF)</strong>
+            <span>Anonymized sample engagement showing compute right-sizing, top slow-query fixes, and native alert setup.</span>
+          </li>
+          <li>
+            <strong>2. 14-Day Scope of Work &amp; Deliverables (PDF)</strong>
+            <span>Day-by-day sprint breakdown, workstreams, prerequisites, and exact handover artifacts.</span>
+          </li>
+        </ul>
 
-<section class="section alt"><div class="wrap">
-<div class="eyebrow">The engagement</div>
-<h2>Three Workstreams, <span class="grad">One Fixed-Scope Sprint.</span></h2>
-<div class="cards3">
-<article class="wscard"><span class="tag">Workstream A</span><h3>Azure &amp; SQL Cost Optimization</h3><ul><li>Compute right-sizing across vCore/DTU tiers</li><li>Idle &amp; non-prod waste removal</li><li>Storage &amp; backup hygiene</li><li>Redundant license elimination</li></ul></article>
-<article class="wscard"><span class="tag">Workstream B</span><h3>SQL Server Performance Tuning</h3><ul><li>Workload &amp; wait-stats baseline</li><li>Query &amp; stored procedure remediation</li><li>Index &amp; statistics optimization</li><li>Blocking &amp; deadlock mitigation</li></ul></article>
-<article class="wscard"><span class="tag">Workstream C</span><h3>Centralized Native Monitoring</h3><ul><li>Native telemetry pipeline (Query Store, Extended Events, Azure Monitor)</li><li>Centralized health dashboard</li><li>Actionable alerting to email, Teams, or Slack</li></ul></article>
-</div>
-</div></section>
+        <div class="kpi-strip">
+          <div class="kpi-mini"><b>35%</b><small>Sample Spend Cut</small></div>
+          <div class="kpi-mini"><b>-83%</b><small>P95 Query Latency</small></div>
+          <div class="kpi-mini"><b>$0/mo</b><small>3rd-Party Tooling</small></div>
+        </div>
+      </div>
 
-<section class="section"><div class="wrap">
-<div class="eyebrow">Delivery timeline</div>
-<h2>14 Days, <span class="grad">Start to Handover.</span></h2>
-<div class="steps">
-<div class="step"><small>DAYS 1–3</small><h3>Baseline &amp; Discovery</h3><p>Access verification, Azure spend &amp; tier inventory, Query Store capture, bottleneck ranking.</p></div>
-<div class="step"><small>DAYS 4–8</small><h3>Performance Tuning</h3><p>Index tuning, top 10–20 slow query rewrites, blocking and deadlock fixes, staging validation.</p></div>
-<div class="step"><small>DAYS 9–11</small><h3>Cost &amp; Monitoring</h3><p>Safe compute right-sizing, Serverless/storage cleanup, native Azure Monitor + alert deployment.</p></div>
-<div class="step"><small>DAYS 12–14</small><h3>Validation &amp; Handover</h3><p>Before/after benchmark comparison, executive readout, full script and dashboard handover.</p></div>
-</div>
-</div></section>
+      <div class="form-card">
+        <div id="formWrap">
+          <h2>Download the Report</h2>
+          <p class="sub">Enter your details below for instant access to both PDFs.</p>
+          <form id="reportForm">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" required placeholder="Your name">
 
-<section class="section alt" id="download"><div class="wrap gate">
-<div>
-<div class="eyebrow">Get the free download</div>
-<h2>Download the Sample Report &amp; <span class="grad">Scope of Work.</span></h2>
-<p>Tell us where to confirm your request and we'll unlock both PDFs immediately — no sales call required.</p>
-<p><strong>Azure &amp; SQL Cost + Performance Rescue</strong><br>Executive Diagnostic Report (PDF) + Scope of Work &amp; Deliverables (PDF)</p>
-</div>
-<div class="panel">
-<form id="gateForm">
-<label for="name">Full name</label><input id="name" name="name" required placeholder="Your name">
-<label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com">
-<label for="company">Company</label><input id="company" name="company" required placeholder="Company name">
-<div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-<button class="btn" type="submit" id="submitBtn">Get the free download ↓</button>
-<div id="status" role="status" aria-live="polite"></div>
-<div class="downloads" id="downloads">
-<a class="btn secondary" id="dl1" href="downloads/azure-sql-cost-performance-rescue-sample-report.pdf" download>Download Diagnostic Report (PDF)</a>
-<a class="btn secondary" id="dl2" href="downloads/azure-sql-cost-performance-rescue-scope-of-work.pdf" download>Download Scope of Work (PDF)</a>
-</div>
-</form>
-</div>
-</div></section>
+            <label for="email">Work Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@company.com">
 
+            <label for="company">Company</label>
+            <input id="company" name="company" required placeholder="Company name">
+
+            <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn" type="submit" id="submitBtn">Get Instant PDF Access →</button>
+            <div id="status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div class="unlock-box" id="unlockBox">
+          <h3>Your Sample Pack Is Ready</h3>
+          <p>Thanks for requesting the pack. Download both PDFs below:</p>
+          <div class="dl-actions">
+            <!-- Update href values below to match where you host the PDF files on your server or Google Drive -->
+            <a class="btn" href="YourIT_Team_Cost_Performance_Rescue_Report.pdf" target="_blank" rel="noopener">Download Sample Diagnostic Report (PDF) ↗</a>
+            <a class="btn outline" href="YourIT_Team_Cost_Performance_Rescue_Scope_of_Work.pdf" target="_blank" rel="noopener">Download 14-Day Scope of Work (PDF) ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
-<footer class="footer"><div class="wrap foot"><div class="brand">your<span>IT</span>.team</div><span>Better Data. Better AI.</span><a href="index.html">Homepage</a></div></footer>
-<script>
-function toggleMenu(btn){const nav=document.getElementById('links');const open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
-document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('links').classList.remove('open');document.querySelector('.menu').setAttribute('aria-expanded','false')}));
 
+<footer>
+  <div class="wrap foot">
+    <div class="brand">your<span>IT</span>.team</div>
+    <div>Better Data. Better AI. © <span id="year"></span></div>
+    <a href="index.html">Back to home ↑</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+function toggleMenu(btn){const nav=document.getElementById('links');const open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}
 const CONTACT_ENDPOINT='https://script.google.com/macros/s/AKfycbzAfxZvcqmudOA6yNdLyB3a-ceox2KCHXnxMsb-E0aPl_6mKXuf-pQOPWNyyzWzUodUFg/exec';
-document.getElementById('gateForm').addEventListener('submit',function(e){
+document.getElementById('reportForm').addEventListener('submit',function(e){
   e.preventDefault();
-  const form=this;const btn=document.getElementById('submitBtn');const status=document.getElementById('status');const dlWrap=document.getElementById('downloads');
+  const form=this;
+  const btn=document.getElementById('submitBtn');
+  const status=document.getElementById('status');
   const d=new FormData(form);
   if(d.get('website')){return;}
   const payload={
     name:d.get('name')||'',
     email:d.get('email')||'',
     company:d.get('company')||'',
-    message:'Requested the free download: Azure & SQL Cost + Performance Rescue — Sample Diagnostic Report + Scope of Work (via cost_performance_rescue.html).'
+    message:'Sample Rescue Report Download'
   };
-  btn.disabled=true;status.textContent='Submitting…';dlWrap.classList.remove('show');
+  btn.disabled=true;
+  status.textContent='Unlocking downloads…';
   fetch(CONTACT_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
     .then(r=>r.json())
     .then(data=>{
       if(data && data.ok){
-        status.textContent='Thanks — your download is ready below.';
-        dlWrap.classList.add('show');
-        document.getElementById('dl1').click();
-        setTimeout(()=>{document.getElementById('dl2').click();},600);
-        form.reset();
-      }else{
-        status.textContent='We could not process your request. Please try again or email us directly.';
+        document.getElementById('formWrap').style.display='none';
+        document.getElementById('unlockBox').classList.add('visible');
+      } else {
+        status.textContent='Could not verify submission. Please try again or email us directly.';
       }
     })
-    .catch(()=>{status.textContent='Something went wrong submitting the form. Please try again in a moment.';})
+    .catch(()=>{status.textContent='Something went wrong. Please try again in a moment.';})
     .finally(()=>{btn.disabled=false;});
 });
 </script>
-</body></html>
+</body>
+</html>
